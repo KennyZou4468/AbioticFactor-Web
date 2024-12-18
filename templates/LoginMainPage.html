@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginMainPage</title>
+    <link rel="stylesheet" href="../static/plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css" >
+    <style>
+        .loginAccount{
+                width: 300px;
+                height: 300px;
+                margin-left: auto;
+                margin-right: auto;
+          }
+        .loginAccount h1{
+            text-align: center;
+        }
+        .loginAccount button{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #LoginMainPage {
+            background-image: url("../static/img/BG.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Ensures it covers the full viewport height */
+            width: 100vw;  /* Ensures it covers the full viewport width */
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="background" id="LoginMainPage">
+    <div class="loginAccount" >
+        <form action="/Check" method="post">
+            <h1 class="display-1" style="color: white">Faculty Login</h1>
+        <div class="form-floating mb-3">
+            <input type="User" class="form-control" id="floatingInput" placeholder="Your name" name="username">
+            <label for="floatingInput">Your name</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="col-auto">
+            <!--点击这个按钮，执行check函数调用-->
+            <button type="submit" class="btn btn-primary mb-3" style="margin-top:80px;margin-left: 85px">Confirm identity</button>
+            <!--点击这个按钮，执行button_click_for_signup函数，单独执行sign up-->
+            <button type="button" class="btn btn-primary mb-3" style="color: yellow; margin-top:50px;margin-left: 110px" onclick="location.href='{{ url_for('button_click_for_signup') }}'">Sign Up</button>
+        </div>
+        </form>
+
+    </div>
+</div>
+    {% if message %}
+        <script type="text/javascript">
+            alert("{{ message }}");
+        </script>
+    {% endif %}
+<script src="../static/plugins/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
+<script src="../static/js/jquery-3.7.1.js"></script>
+</body>
+</html>

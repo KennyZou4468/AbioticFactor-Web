@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Content</title>
+    <link rel="stylesheet" href="../static/plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css" >
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+     <link href="../static/plugins/fontawesome-free-6.6.0-web/css/fontawesome.css" rel="stylesheet" />
+     <link href="../static/plugins/fontawesome-free-6.6.0-web/css/brands.css" rel="stylesheet" />
+    <link href="../static/plugins/fontawesome-free-6.6.0-web/css/solid.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="container">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Abiotic Factor</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Sign out</a>
+        </li>
+         <li class="nav-item">
+           <a class="nav-link active" aria-current="page"  onclick="location.href='{{ url_for('StaffList') }}'"style="cursor: pointer;">Staff</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" onclick="location.href='{{ url_for('LocationList') }}'"style="cursor: pointer;">Locations</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" onclick="location.href='{{ url_for('TheoryList') }}'"style="cursor: pointer;">Theories</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item"  onclick="location.href='{{ url_for('EntityList') }}'"style="cursor: pointer;">Entities</a></li>
+          </ul>
+        </li>
+      </ul>
+        <button type="button" class="btn btn-primary mb-3" style="margin-top: 15px" onclick="location.href='{{ url_for('addTheory') }}'">Add New Theory</button>
+    </div>
+  </div>
+</nav>
+  <div>
+    <i class="fa-solid fa-lightbulb fa-5x"></i>
+    <div>
+      <div class="myTable">
+    <table class="table table-dark table-hover">
+      <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">
+         Name
+      </th>
+      <th scope="col">Description</th>
+      <th scope="col">Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for item in data_list %}
+    <tr>
+      <th scope="row">{{item.id}}</th>
+      <td>{{item.name}}</td>
+      <td>{{item.description}}</td>
+      <td>
+        <form action="/deleteTheory" method="POST"> <!-- POST方法提交删除请求 -->
+          <input type="hidden" name="id" value="{{ item.id }}"> <!-- 隐藏传递的id -->
+          <button type="submit" class="btn btn-danger">Delete</button> <!-- 删除按钮 -->
+          <button type="button" class="btn btn-primary mb-3" style="margin-top: 15px" onclick="location.href='{{ url_for('editTheory') }}?name={{ item.name }}'">Edit Theory</button>
+        </form>
+      </td>
+    </tr>
+  {%  endfor %}
+  </tbody>
+  </table>
+</div>
+  </div>
+    <nav aria-label="navigate">
+  <ul class="pagination">
+    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('TheoryList', page=page-1) }}">Former page</a>
+    </li>
+
+    {% for p in range(1, total_pages + 1) %}
+      <li class="page-item {% if p == page %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('TheoryList', page=p) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+
+    <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('TheoryList', page=page+1) }}">Next page</a>
+    </li>
+  </ul>
+</nav>
+</div>
+</div>
+<script src="../static/js/jquery-3.7.1.js"></script>
+<script src="../static/plugins/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
